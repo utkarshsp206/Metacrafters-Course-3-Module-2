@@ -75,6 +75,10 @@ export default function HomePage() {
     }
   }
 
+  const disconnectAccount = async() => {
+    setAccount(undefined);
+  }
+
   const initUser = () => {
     // Check to see if user has Metamask
     if (!ethWallet) {
@@ -83,7 +87,7 @@ export default function HomePage() {
 
     // Check to see if user is connected. If not, connect to their account
     if (!account) {
-      return <button onClick={connectAccount}>Please connect your Metamask wallet</button>
+      return <button onClick={connectAccount} style={{backgroundColor: "#4CAF50", color: "#fff", padding: "10px 20px", borderRadius: "10px", border: "none", cursor: "pointer", marginLeft:"10px"}}>Connect Your Metamask wallet</button>
     }
 
     if (balance == undefined) {
@@ -92,10 +96,14 @@ export default function HomePage() {
 
     return (
       <div>
+        {/* <h1>Welcome to Utkarsh's ATM powered by Metacrafters</h1> */}
         <p>Your Account: {account}</p>
         <p>Your Balance: {balance}</p>
-        <button onClick={deposit}>Deposit 1 ETH</button>
-        <button onClick={withdraw}>Withdraw 1 ETH</button>
+        <div style={{display: "flex", justifyContent: "center", gap: "20px", marginBottom: "20px"}}>
+          <button onClick={withdraw} style={{backgroundColor: "#4CAF50", color: "#fff", padding: "10px 20px", borderRadius: "10px", border: "none", cursor: "pointer"}}>Withdraw 1 ETH</button>
+          <button onClick={deposit} style={{backgroundColor: "#4CAF50", color: "#fff", padding: "10px 20px", borderRadius: "10px", border: "none", cursor: "pointer"}}>Deposit 1 ETH</button>
+        </div>
+        <button onClick={disconnectAccount} style={{backgroundColor: "#ff0000", color: "#fff", padding: "10px 20px", borderRadius: "10px", border: "none", cursor: "pointer"}}>Disconnect Account</button>
       </div>
     )
   }
@@ -103,15 +111,29 @@ export default function HomePage() {
   useEffect(() => {getWallet();}, []);
 
   return (
-    <main className="container">
-      <header><h1>Welcome to the Metacrafters ATM!</h1></header>
+    <>    
+<nav style={{display:"flex", flexDirection:"column", backgroundColor:"#333", padding:"10px", borderRadius:"10px", boxShadow:"0 0 10px rgba(0,0,0,0.5)"}}>
+  <label class="logo" style={{fontWeight:"bold", fontSize:"20px", color:"#fff", marginBottom:"20px", justifyContent:"center"}}>Utkarsh's ATM</label>
+  <ul style={{listStyle:"none", padding:"0", margin:"0", display:"flex", justifyContent:"space-between"}}>
+    <li style={{flexBasis:"20%"}}><a class="active" href="#" style={{textDecoration:"none", color:"#fff", backgroundColor:"#444", padding:"10px 20px", borderRadius:"10px"}}>Home</a></li>
+    <li style={{flexBasis:"20%"}}><a href="#" style={{textDecoration:"none", color:"#fff", padding:"10px 20px", borderRadius:"10px"}}>About</a></li>
+    <li style={{flexBasis:"20%"}}><a href="#" style={{textDecoration:"none", color:"#fff", padding:"10px 20px", borderRadius:"10px"}}>Services</a></li>
+    <li style={{flexBasis:"20%"}}><a href="#" style={{textDecoration:"none", color:"#fff", padding:"10px 20px", borderRadius:"10px"}}>Contact</a></li>
+    <li style={{flexBasis:"20%"}}><a href="#" style={{textDecoration:"none", color:"#fff", padding:"10px 20px", borderRadius:"10px"}}>Feedback</a></li>
+  </ul>
+</nav>
+    <main className="container" style={{backgroundColor: "rgb(211 193 133)", minHeight: "85vh", display: "flex", justifyContent: "center", alignItems: "center"}}>
+    <h1>Welcome to Utkarsh's ATM <br></br>powered by Metacrafters</h1>
       {initUser()}
       <style jsx>{`
-        .container {
+      .container {
           text-align: center
-        }
+        },
+         
       `}
       </style>
     </main>
+    </>
+
   )
 }
